@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>confirm</title>
+	<script type="text/javascript">
+		function rec(){
+			var mymessage=confirm("do you love me?");
+			if (mymessage==true) {
+				document.write("you are my hero");
+			}else{
+				document.write("you are my friend");
+			}
+		}
+	</script>
+</head>
+<body>
+<input type="button" name="button" onClick="rec()" value="click me,please!!!">
+</body>
+</html>
