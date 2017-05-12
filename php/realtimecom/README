@@ -1,0 +1,10 @@
+tcp   http telnet
+  socket websocket
+长链接 后台服务
+ MeepoPS 
+
+ TCP 传输层 IP层上 应用层下的    
+ socket 封装tcp/ip协议
+ 监听 请求 响应
+ 
+ HTTP 应用层协议 Header+Body组成
