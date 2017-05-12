@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		body,h1,label,p,input,select,button {
+			font-size: 15px;
+			line-height: 1.8;
+		}
+	</style>
+</head>
+<body>
+<h1>员工查询</h1>
+<label>请输入员工编号：</label>
+<input type="text" name="keyword" id="keyword">
+<button id="search">查询</button>
+<p id="searchResult"></p>
+
+
+<h1>员工创建</h1>
+<label>请输入员工姓名：</label>
+<input type="text" name="staff_name" id="staff_name"><br>
+<label>请输入员工编号：</label>
+<input type="text" name="staff_number" id="staff_number"><br>
+<label>请选择员工性别：</label>
+<select id="staff_sex">
+	<option>男</option>
+	<option>女</option>
+</select><br>
+<label>请输入员工职位：</label>
+<input type="text" name="staff_job" id="staff_job"><br>
+<button id="save">保存</button>
+<p id="createResult"></p>
+
+
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#search").click(function(){
+		$.ajax({
+			type:"GET",
+			url:"http://127.0.0.1/basics/ajax/jsonp.php?number="+$("#keyword").val(),
+			dataType:"jsonp",
+			jsonp:"callback",
+			success:function(data) {
+				if (data.success) {
+					$("#searchResult").html(data.msg);
+				}else{
+					$("#searchResult").html("出现错误："+ data.msg);
+				}
+			},
+			error:function(jqXHR) {
+				alert("发生错误："+jqXHR.status);
+			}
+		})
+	});
+
+	$("#save").click(function(){
+		$.ajax({
+			type:"POST",
+			url:"http://127.0.0.1/basics/ajax/jsonp.php",
+			dataType:"json",
+			data:{
+				name:$("#staff_name").val(),
+				number:$("#staff_number").val(),
+				sex:$("#staff_sex").val(),
+				job:$("#staff_job").val(),
+			},
+			success:function(data) {
+				if (data.success) {
+					$("#createResult").html(data.msg);
+				}else{
+					$("#createResult").html("出现错误："+data.msg);
+				}
+			},
+			error:function(jqXHR) {
+				alert("发生错误："+jqXHR.status);
+			}
+
+		})
+	})
+});
+
+</script>
+</body>
+</html>
