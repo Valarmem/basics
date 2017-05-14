@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片预加载之无序加载－－ＱＱ表情</title>
+    <style media="screen">
+        body,p,ul,li {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            background: #eee;
+        }
+        a {
+            width: 350px;
+            text-decoration:none;
+            outline: none; //去掉虚线边框
+        }
+        li {
+            list-style-type: none;
+        }
+        .box {
+            margin: 150px 0 0 200px;
+        }
+        #face-btn {
+            display: block;
+            background: url('./../img/emoji/emoji.jpg') no-repeat 0 4px;
+            color: #333;
+            font-size: 30px;
+            text-indent:20px;
+        }
+        #face-btn:hover {
+            background-position: 0 -26px;
+            height: 280px;
+        }
+        .panel {
+            display: none;
+            width: 920px;
+            padding: 2px;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+        .loading {
+            text-align: center;
+        }
+        .list li {
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            border: 2px solid #fff;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        .list li:hover {
+            border-color: #06c;
+        }
+    </style>
+</head>
+<body>
+<div class="box"><!-- Ctrl+Shift+P 输入Wrap　Emment可以自动给外面添加一个包裹层 =O+O= -->
+    <a href="javascript:;" id="face-btn">表情</a>
+    <div class="panel">
+        <p class="loading">表情加载中，请稍后...</p>
+        <!-- <ul class="list">
+            <li><img src="../img/emoji/ali/01.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/02.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/03.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/04.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/05.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/06.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/07.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/08.jpg" alt=""></li>
+        </ul> -->
+        <!--
+        <ul class="list">
+            li*8>img[src="../img/emoji/ali/0$.jpg"]
+        </ul>
+        -->
+    </div>
+</div>
+
+<script src="../js/jquery.3.2.1.js"></script>
+<script src="../js/preload.js"></script>
+<script>
+    var $btn = $('#face-btn'),
+        $panel = $('.panel');
+    var imgs = [];
+    for (var i = 0; i < 8; i++) {
+        imgs[i] = '../img/emoji/ali/0'+(i+1)+'.jpg';
+    }
+
+    var len = imgs.length;
+
+    $btn.on('click',function (e){
+        // 禁止事件冒泡
+        e.stopPropagation();
+
+        $panel.show();
+        $.preload(imgs,{
+            all:function () {
+                var html = '';
+                html += '<ul class="list">';
+
+                for (var i = 0; i < len; i++) {
+                    html += '<li><img src="' + imgs[i] + '" alt=""></li>';
+                }
+                html += '</ul>';
+
+                // $panel.html(html);
+                // 为了让效果在本地明显显示出来，采用人为的延时功能。在实际项目中不需要这么做
+                setTimeout(function (){
+                    $panel.html(html);
+                },1000);
+            }
+        });
+    });
+
+    //　事件冒泡 --每执行到btn的click事件，它的父元素的事件也被执行.所以被隐藏。修复方法是禁止事件冒泡
+    $(document).on('click',function (){
+        $panel.hide();
+    });
+
+</script>
+</body>
+</html>

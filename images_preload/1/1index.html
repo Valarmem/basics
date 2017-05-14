@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片预加载之无序加载</title>
+    <style media="screen">
+        img {
+            width: 700px;
+        }
+        .box {
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+        }
+        .btn {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ccc;
+            background: #fff;
+            padding: 0 10px;
+            margin-right: 50px;
+            color: #333;
+        }
+        .btn:hover {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="http://www.bz55.com/uploads/allimg/150227/139-15022G03153.jpg" alt="" id="img">
+        <p>
+            <a href="javascript:;" class="btn" data-control="prev">上一页</a>
+            <a href="javascript:;" class="btn" data-control="next">下一页</a>
+        </p>
+    </div>
+<script type="text/javascript" src="../js/jquery.3.2.1.js"></script>
+<script type="text/javascript">
+    var imgs = [
+        'http://www.bz55.com/uploads/allimg/150227/139-15022G03153.jpg',
+        'http://images5.fanpop.com/image/photos/30700000/Sweet-Taylor-Swift-sweety63-30713963-1920-1080.jpg',
+        'http://store.taylorswift.com/images/hp_tile_music.jpg',
+        'http://www.bz55.com/uploads/allimg/150227/139-15022G03201.jpg',
+        'http://www.bz55.com/uploads/allimg/150227/139-15022G03159.jpg',
+        'http://www.bz55.com/uploads/allimg/150812/139-150Q2114626.jpg',
+        'http://www.bz55.com/uploads/allimg/150812/139-150Q2114647.jpg',
+        'http://www.bz55.com/uploads/allimg/150812/139-150Q2114A8.jpg'
+    ];
+    var index = 0,
+        len = imgs.length;
+    $(".btn").on('click',function(){
+        if ('prev'===$(this).data('control')) {
+            // index--;
+            // if (index<0) {
+            //     index = 0;
+            // }
+            index = Math.max(0,--index);
+        }else {
+            index = Math.min(len-1,++index);
+        }
+        document.title = (index+1)+'/'+len;
+        $('#img').attr('src',imgs[index]);
+    });
+</script>
+</body>
+</html>
