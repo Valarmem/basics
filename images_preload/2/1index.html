@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片预加载之无序加载－－ＱＱ表情</title>
+    <style media="screen">
+        body,p,ul,li {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            background: #eee;
+        }
+        a {
+            text-decoration:none;
+        }
+        li {
+            list-style-type: none;
+        }
+        .box {
+            margin: 150px 0 0 200px;
+        }
+        #face-btn {
+            display: block;
+            background: url('./../img/emoji/emoji.jpg') no-repeat 0 4px;
+            color: #333;
+            font-size: 30px;
+            text-indent:20px;
+        }
+        #face-btn:hover {
+            background-position: 0 -26px;
+            height: 300px;
+        }
+        .panel {
+            width: 920px;
+            padding: 2px;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+        .loading {
+            text-align: center;
+        }
+        .list li {
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            border: 2px solid #fff;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        .list li:hover {
+            border-color: #06c;
+        }
+    </style>
+</head>
+<body>
+<div class="box"><!-- Ctrl+Shift+P 输入Wrap　Emment可以自动给外面添加一个包裹层 =O+O= -->
+    <a href="javascript:;" id="face-btn">表情</a>
+    <div class="panel">
+        <!-- <p class="loading">表情加载中，请稍后...</p> -->
+        <ul class="list">
+            <li><img src="../img/emoji/ali/01.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/02.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/03.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/04.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/05.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/06.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/07.jpg" alt=""></li>
+            <li><img src="../img/emoji/ali/08.jpg" alt=""></li>
+        </ul>
+        <!--
+        <ul class="list">
+            li*8>img[src="../img/emoji/ali/0$.jpg"]
+        </ul>
+        -->
+    </div>
+</div>
+</body>
+</html>

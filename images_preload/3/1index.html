@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片预加载之有序加载</title>
+    <style media="screen">
+    img {
+        width: 600px;
+    }
+    .box {
+        text-align: center;
+    }
+    a {
+        text-decoration: none;
+    }
+    .btn {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        border: 1px solid #ccc;
+        background: #fff;
+        padding: 0 10px;
+        margin-right: 50px;
+        color: #333;
+    }
+    .btn:hover {
+        background: #eee;
+    }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="http://tkpic.tukucc.com/500/顶尖淑女/1/001.jpg" alt="" id="img" width="800">
+        <p>
+            <a href="javascript:;" class="btn" data-control="prev">上一页</a>
+            <a href="javascript:;" class="btn" data-control="next">下一页</a>
+        </p>
+    </div>
+<script src="../js/jquery.3.2.1.js"></script>
+<script type="text/javascript">
+    var imgs = [
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/002.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/003.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/004.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/005.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/006.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/007.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/008.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/009.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/010.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/011.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/012.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/013.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/014.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/015.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/016.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/017.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/019.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/020.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/021.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/022.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/023.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/024.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/025.jpg',
+        'http://tkpic.tukucc.com/500/顶尖淑女/1/026.jpg',
+    ];
+    var len = imgs.length;
+    var count = 0,index=0;
+    load();
+    // 有序预加载
+    function load() {
+        var imgObj = new Image();
+        $(imgObj).on('load error',function (){
+            if (count >= len) {
+                // 所有图片已经加载完毕
+            }else{
+                load();
+            }
+
+            count++;
+        });
+
+        imgObj.src = imgs[count];
+    }
+
+    $('.btn').on('click',function (){
+        if ('prev' === $(this).data('control')) {
+            //上一张
+            index = Math.max(0,--index);
+        }else{
+            index = Math.min(len-1,++index);
+        }
+        document.title = (index+1)+'/'+len;
+        $('#img').attr('src',imgs[index]);
+    });
+</script>
+</body>
+</html>
