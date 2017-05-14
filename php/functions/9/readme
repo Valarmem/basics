@@ -1,0 +1,8 @@
+单独引用
+ require 有错误停止运行
+ include 引入不存在的文件时只会产生警告 
+ include_once与require_once
+
+路径引用
+ set_include_path
+ get_include_path
