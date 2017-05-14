@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		body,h1,label,p,input,select,button {
+			font-size: 15px;
+			line-height: 1.8;
+		}
+	</style>
+</head>
+<body>
+<h1>员工查询</h1>
+<label>请输入员工编号：</label>
+<input type="text" name="keyword" id="keyword">
+<button id="search">查询</button>
+<p id="searchResult"></p>
+
+
+<h1>员工创建</h1>
+<label>请输入员工姓名：</label>
+<input type="text" name="staff_name" id="staff_name"><br>
+<label>请输入员工编号：</label>
+<input type="text" name="staff_number" id="staff_number"><br>
+<label>请选择员工性别：</label>
+<select id="staff_sex">
+	<option>男</option>
+	<option>女</option>
+</select><br>
+<label>请输入员工职位：</label>
+<input type="text" name="staff_job" id="staff_job"><br>
+<button id="save">保存</button>
+<p id="createResult"></p>
+
+
+<script type="text/javascript">
+document.getElementById("search").onclick = function() {
+	// 发送Ajax查询请求并处理
+	var request = new XMLHttpRequest();
+	request.open("GET","json_server.php?number="+document.getElementById("keyword").value);
+	request.send();
+	request.onreadystatechange = function() {
+		if (request.readyState === 4) {
+			if (request.status === 200) {
+				var data = JSON.parse(request.responseText);
+				if (data.success) {
+					document.getElementById("searchResult").innerHTML = data.msg;
+				} else {
+					document.getElementById("searchResult").innerHTML = "出现错误："+data.msg;
+				}
+			}else{
+				alert("发生错误:"+request.status);
+			}
+		}
+	}
+}
+
+document.getElementById("save").onclick = function() {
+	var request = new XMLHttpRequest();
+	request.open("POST","json_server.php");
+	var data = "name="+document.getElementById("staff_name").value
+			+"&number="+document.getElementById("staff_number").value
+			+"&sex="+document.getElementById("staff_sex").value
+			+"&job="+document.getElementById("staff_job").value;
+	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4) {
+			if (request.status === 200) {
+				console.log(request.responseText);
+				var data = JSON.parse(request.responseText);
+				if (data.success) {
+					document.getElementById("createResult").innerHTML = data.msg;
+				} else {
+					document.getElementById("createResult").innerHTML = "出现错误："+data.msg;
+				}
+			}else{
+				alert("发生错误："+request.status);
+			}
+		}
+	}
+}
+</script>
+</body>
+</html>

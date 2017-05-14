@@ -38,3 +38,6 @@ HTTP响应
 XMLHttpRequest
 open(method,url,async)
 send(string)
+
+Content-Type:application/x-www-urlencoded
+Content-Length:0
